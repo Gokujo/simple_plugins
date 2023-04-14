@@ -1,0 +1,78 @@
+<div class="wrapper">
+
+	<div class="sidebar" data-color="white" data-active-color="danger">
+		<app-sidebar-cmp></app-sidebar-cmp>
+	</div>
+
+	<div class="main-panel">
+		<app-navbar-cmp></app-navbar-cmp>
+
+		<div class="content">
+
+			<h1>{{title}}</h1>
+			<p>Простые плагины и модификации одним файлом. Решил открыть репозиторий с плагинами, которые не нуждаются в
+				большой установке и огромных правок движка. А так-же модификации плагинов сторонних разработчиков.</p>
+			<hr>
+
+			<h2>Как скачать?</h2>
+			<ol class="list-group list-group-numbered">
+				<li class="list-group-item">1. Перейти в <a href="https://github.com/Gokujo/simple_plugins" target="_blank">репозиторий</a>. При помощи зелёной кнопки <kbd style="background: forestgreen"><> Code</kbd> над репозиторием и в выпавшем окне на Download ZIP. Затем распаковать и в папке plugins найти нужный плагин и установить.</li>
+				<li class="list-group-item">2. При помощи ссылки, что указана в таблицах ниже. Нажмите правой кнопкой мыши по ссылки и затем на "Сохранить ссылку как" (текст может отличаться)</li>
+				<li class="list-group-item">3. При помощи ссылки, что указана в таблицах ниже. Открываете её и копируете содержимое в блокнот и сохраняете в формате xml</li>
+				<li class="list-group-item">4. При помощи <a href="https://github.com/Gokujo/simple_plugins" target="_blank">репозитория</a>, переходите в папку plugins, выбираете нужный плагин и жмёте на него. Далее как в пункте 3.</li>
+			</ol>
+			<hr>
+			<h2>Список плагинов</h2>
+			<table class="table table-striped">
+				<thead>
+				<tr>
+					<th>Название</th>
+					<th>Версия</th>
+					<th>Ссылка</th>
+					<th>Описание</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr *ngFor="let p of plugins">
+					<td>{{p.name}}</td>
+					<td>{{p.version}}</td>
+					<td><a href="{{p.link}}" target="_blank">Скачать</a></td>
+					<td>{{p.description}}</td>
+				</tr>
+				</tbody>
+			</table>
+			<hr>
+			<h2>Список модификаций</h2>
+			<div class="alert alert-danger" role="alert">К любой модификации требуется оригинал. Модификация не содержит изначальных правок, чтобы не рушить
+				работоспособность изначальной задумки. А так-же для того, чтобы можно было просто и без проблем обновить
+			оригинал</div>
+
+			<table class="table table-striped">
+				<thead>
+				<tr>
+					<th>Название</th>
+					<th>Версия</th>
+					<th>Ссылка</th>
+					<th>Автор оригинала</th>
+					<th>Ссылка</th>
+					<th>Версия</th>
+					<th>Описание</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr *ngFor="let m of mods" [ngClass]="{'active': selectedMod}" (click)="selectMod(m)">
+					<td>{{m.name}}</td>
+					<td>{{m.version}}</td>
+					<td><a href="{{m.link}}" target="_blank">Скачать</a></td>
+					<td>{{m.author}}</td>
+					<td><a href="{{m.source_link}}" target="_blank">Перейти</a> </td>
+					<td>{{m.source_version}}</td>
+					<td>{{m.description}}</td>
+				</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+
+</div>
