@@ -16,7 +16,7 @@ body:
             options:
                 -   label: Я прочёл / прочла соглашение и согласен / согласна с ними
                     required: true
-    -   type: markdown
+    -   type: textarea
         id: what-happened
         attributes:
             label: В чём проблема?
@@ -25,7 +25,7 @@ body:
             value: "Проблемка нарисовалась!"
         validations:
             required: true
-    -   type: markdown
+    -   type: textarea
         id: what-should-happen
         attributes:
             label: Что ожидали?
@@ -75,7 +75,7 @@ body:
         validations:
             required: true
 
-    -   type: markdown
+    -   type: textarea
         id: "screenshots"
         attributes:
             label: Скриншоты
