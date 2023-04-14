@@ -48,8 +48,6 @@ body:
         attributes:
             label: Версия плагина
             description: Какой версией плагина пользуешься? Стоит обычно в менеджере плагинов
-            options:
-                - "Fullstory-Metatags by Sander (MOD)"
         validations:
             required: true
     -   type: dropdown
