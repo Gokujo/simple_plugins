@@ -13,6 +13,8 @@ export class AppComponent implements OnInit {
 	plugins: Array<Plugin> = [];
 	selectedMod: Mod | null = null;
 	selectedPlugin: Plugin | null = null;
+	selectedObject: Mod | null = null;
+	selectedItem: boolean = false;
 
 	constructor() {
 	}
@@ -28,7 +30,7 @@ export class AppComponent implements OnInit {
 				{
 					version: "160.1.0",
 					changes: [
-						"Добавлена возможность добавлять свои собственные теги, помимо og и title, которые будут добавляться к соц. тегам обработки. Для добавления собственного тега нужно указать следующий тег: <custom:...></custom:...>. Важен сам тег custom и двоеточие после. После этого двоеточия вводите своё название тега.<br><br><b>Пример</b>: <custom:video:title>Кролик Роджер</custom:video:title>"
+						"Добавлена возможность добавлять свои собственные теги, помимо og и title, которые будут добавляться к соц. тегам обработки. Для добавления собственного тега нужно указать следующий тег: &lt;custom:...&gt;&lt;/custom:...&gt;. Важен сам тег custom и двоеточие после. После этого двоеточия вводите своё название тега.<br><br><b>Пример</b>: &lt;custom:video:title&gt;Кролик Роджер&lt;/custom:video:title&gt;"
 					]
 				}
 			],
@@ -41,11 +43,15 @@ export class AppComponent implements OnInit {
 	selectMod(m: Mod): void {
 		this.selectedPlugin = null;
 		this.selectedMod = m;
+		this.selectedItem = true;
+		this.selectedObject = m;
 	}
 
 	selectPlugin(p: Plugin) {
 		this.selectedMod = null;
 		this.selectedPlugin = p;
+		this.selectedItem = true;
+		this.selectedObject = p as Mod;
 	}
 
 

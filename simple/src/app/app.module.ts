@@ -2,6 +2,7 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {NgIf} from "@angular/common";
 
 import {AppComponent} from './app.component';
 import {ModFullstoryMetatagsComponent} from './mod-fullstory-metatags/mod-fullstory-metatags.component';
@@ -18,7 +19,8 @@ import {RouterLinkActive} from "@angular/router";
 		NgbDropdown,
 		NgbDropdownToggle,
 		NgbDropdownItem,
-		RouterLinkActive
+		RouterLinkActive,
+		NgIf
 	],
 	declarations: [
 		AppComponent,

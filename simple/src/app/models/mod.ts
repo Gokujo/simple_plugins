@@ -1,12 +1,8 @@
 import {Changelog} from "./changelog";
+import {Plugin} from "./plugin";
 
-export interface Mod {
-	name: string;
-	version: string;
-	link: string;
-	description: string;
-	changes: Array<Changelog>;
-	author: string;
-	source_link: string;
-	source_version: string;
+export interface Mod extends Plugin{
+	author: string | null;
+	source_link: string | null;
+	source_version: string | null;
 }

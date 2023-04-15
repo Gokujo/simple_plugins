@@ -4,4 +4,36 @@ kbd {
   padding: 0.3rem 0.5rem;
   font-size: 100%;
 }
+.card.hide {
+  display: none;
+}
+.card.hide.active {
+  display: block;
+}
+tr > td:first-child {
+  cursor: pointer;
+}
+.changelog {
+  display: grid;
+  grid-template-columns: auto 2fr;
+}
+.changelog > dt {
+  min-width: 0;
+  height: 100%;
+  text-decoration: underline;
+}
+.changelog > dt:not(:first-of-type) {
+  border-top: 1px solid rgba(225, 225, 225, 0.45);
+}
+.changelog > dd {
+  margin: 0 0 0 1em;
+  border-left: 1px solid rgba(225, 225, 225, 0.45);
+}
+.changelog > dd:not(:first-of-type) {
+  border-top: 1px solid rgba(225, 225, 225, 0.45);
+}
+.changelog > dd:hover {
+  border-color: rgba(225, 225, 225, 0.66);
+  box-shadow: 1px 1px 4px #f1926e;
+}
 /*# sourceMappingURL=styles.css.map */
