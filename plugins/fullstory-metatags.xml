@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dleplugin>
+	<name>Fullstory-Metatags MOD by MaHarder</name>
+	<description></description>
+	<icon></icon>
+	<version>160.1.0</version>
+	<dleversion>13</dleversion>
+	<versioncompare>greater</versioncompare>
+	<upgradeurl></upgradeurl>
+	<filedelete>0</filedelete>
+	<needplugin>Fullstory-Metatags by Sander</needplugin>
+	<mnotice>0</mnotice>
+	<mysqlinstall><![CDATA[]]></mysqlinstall>
+	<mysqlupgrade><![CDATA[]]></mysqlupgrade>
+	<mysqlenable><![CDATA[]]></mysqlenable>
+	<mysqldisable><![CDATA[]]></mysqldisable>
+	<mysqldelete><![CDATA[]]></mysqldelete>
+	<phpinstall><![CDATA[]]></phpinstall>
+	<phpupgrade><![CDATA[]]></phpupgrade>
+	<phpenable><![CDATA[]]></phpenable>
+	<phpdisable><![CDATA[]]></phpdisable>
+	<phpdelete><![CDATA[]]></phpdelete>
+	<notice><![CDATA[]]></notice>
+	<file name="engine/mods/fullstory.metatags.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$v == 'title' && $v = 'header_title';]]></searchcode>
+			<enabled>1</enabled>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[if (stripos($v, 'og:') === 0) {]]></searchcode>
+			<replacecode><![CDATA[if (stripos($v, 'custom:') === 0) {
+			$v = substr($v, 7);
+			$custom_social_tags[$v] = $val;
+		} elseif (stripos($v, 'og:') === 0) {]]></replacecode>
+			<enabled>1</enabled>
+		</operation>
+	</file>
+	<file name="engine/engine.php">
+		<operation action="after">
+			<searchcode><![CDATA[$social_tags = array();]]></searchcode>
+			<replacecode><![CDATA[$custom_social_tags = array();]]></replacecode>
+			<enabled>1</enabled>
+		</operation>
+		<operation action="before">
+			<searchcode><![CDATA[if ( count($social_tags) ) {]]></searchcode>
+			<replacecode><![CDATA[if ( count($custom_social_tags) ) {
+	foreach ($custom_social_tags as $key => $value) {
+		$meta->custom($key, $value);
+	}
+}]]></replacecode>
+			<enabled>1</enabled>
+		</operation>
+	</file>
+	<file name="engine/classes/seo.class.php">
+		<operation action="replace">
+			<searchcode><![CDATA[include_once (DLEPlugins::Check(ENGINE_DIR . '/classes/composer/vendor/melbahja/seo/src/MetaTags.php'));]]></searchcode>
+			<replacecode><![CDATA[include_once (DLEPlugins::Check(ENGINE_DIR . '/classes/customMetatags.php'));]]></replacecode>
+			<enabled>1</enabled>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[MetaTags($tags)]]></searchcode>
+			<replacecode><![CDATA[customMetatags($tags)]]></replacecode>
+			<enabled>1</enabled>
+		</operation>
+	</file>
+	<file name="engine/classes/customMetatags.php">
+		<operation action="create">
+			<replacecode><![CDATA[<?php
+
+use Melbahja\Seo\MetaTags;
+
+include_once(DLEPlugins::Check(ENGINE_DIR . '/classes/composer/vendor/melbahja/seo/src/MetaTags.php'));
+
+/**
+ * Кастомный обработчик мета тегов
+ *
+ * @version 160.1.0
+ * @since   160.1.0
+ * @author  Maxim Harder
+ */
+class customMetatags extends MetaTags {
+
+	public function __construct(array $tags = []) { parent::__construct($tags); }
+
+	/**
+	 * Передаём свои теги в заголовок
+	 * @version 160.1.0
+	 * @since   160.1.0
+	 *
+	 * @param    string    $name
+	 * @param    string    $value
+	 *
+	 * @return $this
+	 */
+	public function custom(string $name, string $value) : customMetatags {
+		$this->openGraphTags[] = ['meta', ['property' => $name, 'content' => $value]];
+		return $this;
+	}
+
+}]]></replacecode>
+			<enabled>1</enabled>
+		</operation>
+	</file>
+</dleplugin>
