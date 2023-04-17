@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
 			name: 'Fullstory-Metatags',
 			version: '160.1.0',
 			description: 'Плагин добавляет дополнительные метатеги из описания новости в заголовок',
-			link: "https://raw.githubusercontent.com/Gokujo/simple-plugins/master/plugins/fullstory-metatags.xml",
+			link: "https://raw.githubusercontent.com/Gokujo/simple_plugins/main/plugins/fullstory-metatags.xml",
 			author: "SanDev",
 			changes: [
 				{
