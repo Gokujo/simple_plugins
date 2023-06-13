@@ -39,6 +39,7 @@
                 <tr>
                     <th>Название</th>
                     <th>Версия</th>
+                    <th>Автор</th>
                     <th>Ссылка</th>
                     <th>Описание</th>
                 </tr>
@@ -47,6 +48,7 @@
                 <tr *ngFor="let p of plugins" (click)="selectPlugin(p)">
                     <td >{{p.name}}</td>
                     <td>{{p.version}}</td>
+                    <td>{{p.author}}</td>
                     <td><a href="{{p.link}}" target="_blank">Скачать</a></td>
                     <td>{{p.description}}</td>
                 </tr>
