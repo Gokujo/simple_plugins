@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
 			name: 'ID файла в окне менеджера файлов',
 			version: '160.1.0',
 			description: 'Плагин добавляет ID загруженного файла в окно менеджера загрузок рядом с названием загруженного файла',
-			link: "https://raw.githubusercontent.com/Gokujo/simple_plugins/main/plugins/fullstory-metatags.xml",
+			link: "https://raw.githubusercontent.com/Gokujo/simple_plugins/main/plugins/id-fajla-v-okne-zagruzki-fajlov.xml",
 			author: "MaHarder",
 			changes: [
 				{
