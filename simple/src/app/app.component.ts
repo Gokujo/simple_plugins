@@ -38,6 +38,23 @@ export class AppComponent implements OnInit {
 			source_version: "?",
 
 		});
+		this.plugins.push({
+			name: 'ID файла в окне менеджера файлов',
+			version: '160.1.0',
+			description: 'Плагин добавляет ID загруженного файла в окно менеджера загрузок рядом с названием загруженного файла',
+			link: "https://raw.githubusercontent.com/Gokujo/simple_plugins/main/plugins/fullstory-metatags.xml",
+			author: "MaHarder",
+			changes: [
+				{
+					version: "160.1.0",
+					changes: [
+						"Возле имени файла появится в квадратных скобках ([]) ID самого файла, к примеру: <b>[№ 1] Название файла</b>",
+						"Оформление вывода ID можно настроить или заменить в \"Действия в файлах\" в плагине. Главное не заменять {$row['id']}"
+					]
+				}
+			]
+
+		});
 	}
 
 	selectMod(m: Mod): void {

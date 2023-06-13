@@ -53,6 +53,30 @@
                 </tbody>
             </table>
             <hr>
+            <div class="card hide" [ngClass]="{'active': selectedItem}" *ngIf="selectedObject">
+                <div class="card-body">
+                    <h5 class="card-title">{{selectedObject.name}} (v{{selectedObject.version}})</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary" *ngIf="selectedObject.source_link">Модификация</h6>
+                    <h6 class="card-subtitle mb-2 text-body-secondary" *ngIf="!selectedObject.source_link">Плагин</h6>
+                    <p class="card-text">{{selectedObject.description}}</p>
+                    <div class="card-text">
+                        <b>История изменений</b>:
+                        <dl class="changelog">
+                            <ng-container *ngFor="let c of selectedObject.changes">
+                                <dt>{{c.version}}</dt>
+                                <dd>
+                                    <ul>
+                                        <li *ngFor="let c2 of c.changes" [innerHTML]="c2"></li>
+                                    </ul>
+                                </dd>
+                            </ng-container>
+                        </dl>
+                    </div>
+                    <a href="{{selectedObject.link}}" class="card-link">Скачать</a>
+                    <a *ngIf="selectedObject.source_link" href="{{selectedObject.source_link}}" class="card-link" target="_blank">Источник</a>
+                </div>
+            </div>
+            <hr>
             <h2>Список модификаций</h2>
             <div class="alert alert-danger" role="alert">К любой модификации требуется оригинал. Модификация не содержит
                 изначальных правок, чтобы не рушить
@@ -85,29 +109,7 @@
                 </tbody>
             </table>
 
-            <div class="card hide" [ngClass]="{'active': selectedItem}" *ngIf="selectedObject">
-                <div class="card-body">
-                    <h5 class="card-title">{{selectedObject.name}} (v{{selectedObject.version}})</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary" *ngIf="selectedObject.source_link">Модификация</h6>
-                    <h6 class="card-subtitle mb-2 text-body-secondary" *ngIf="!selectedObject.source_link">Плагин</h6>
-                    <p class="card-text">{{selectedObject.description}}</p>
-                    <div class="card-text">
-                        <b>История изменений</b>:
-                        <dl class="changelog">
-                            <ng-container *ngFor="let c of selectedObject.changes">
-                                <dt>{{c.version}}</dt>
-                                <dd>
-                                    <ul>
-                                        <li *ngFor="let c2 of c.changes" [innerHTML]="c2"></li>
-                                    </ul>
-                                </dd>
-                            </ng-container>
-                        </dl>
-                    </div>
-                    <a href="{{selectedObject.link}}" class="card-link">Скачать</a>
-                    <a *ngIf="selectedObject.source_link" href="{{selectedObject.source_link}}" class="card-link" target="_blank">Источник</a>
-                </div>
-            </div>
+
 
         </div>
     </div>

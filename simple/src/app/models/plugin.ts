@@ -6,4 +6,5 @@ export interface Plugin {
 	link: string;
 	description: string;
 	changes: Array<Changelog>;
+	author: string | null;
 }
