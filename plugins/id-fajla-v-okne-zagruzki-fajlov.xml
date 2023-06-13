@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dleplugin>
+	<name>ID файла в окне загрузки файлов</name>
+	<description>Добавляет ID файла при просмотре в окне загруженных файлов рядом с именем.
+Своё оформление можно изменить в &quot;Действия в файлах&quot; в плагине</description>
+	<icon></icon>
+	<version>160.1.0</version>
+	<dleversion>16</dleversion>
+	<versioncompare>greater</versioncompare>
+	<upgradeurl></upgradeurl>
+	<filedelete>0</filedelete>
+	<needplugin></needplugin>
+	<mnotice>0</mnotice>
+	<mysqlinstall><![CDATA[]]></mysqlinstall>
+	<mysqlupgrade><![CDATA[]]></mysqlupgrade>
+	<mysqlenable><![CDATA[]]></mysqlenable>
+	<mysqldisable><![CDATA[]]></mysqldisable>
+	<mysqldelete><![CDATA[]]></mysqldelete>
+	<phpinstall><![CDATA[]]></phpinstall>
+	<phpupgrade><![CDATA[]]></phpupgrade>
+	<phpenable><![CDATA[]]></phpenable>
+	<phpdisable><![CDATA[]]></phpdisable>
+	<phpdelete><![CDATA[]]></phpdelete>
+	<notice><![CDATA[]]></notice>
+	<file name="engine/ajax/upload.php">
+		<operation action="after">
+			<searchcode><![CDATA[<div class="file-caption-info" rel="tooltip" title="ID: {$row['id']}, {$row['name']}">]]></searchcode>
+			<replacecode><![CDATA[[№ {$row['id']}] ]]></replacecode>
+			<enabled>1</enabled>
+		</operation>
+	</file>
+</dleplugin>
