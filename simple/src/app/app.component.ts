@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
 				}
 			],
 			source_link: "https://lazydev.pro/fcode/22-latin-xfield-plugin.html",
-			source_version: "?",
+			source_version: "? (Для DLE 15.3)",
 
 		});
 		this.plugins.push({
