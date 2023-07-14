@@ -38,6 +38,24 @@ export class AppComponent implements OnInit {
 			source_version: "?",
 
 		});
+		this.mods.push({
+			name: 'Latin xField plugin',
+			version: '164.1.4',
+			description: 'Плагин для конвертации ссылок в дополнительных полях в латиницу',
+			link: "https://raw.githubusercontent.com/Gokujo/simple_plugins/main/plugins/translit-ssylok-v-dopolnitelnyh-poljah.xml",
+			author: "LazyDev",
+			changes: [
+				{
+					version: "161.1.4",
+					changes: [
+						"Добавлена поддержка для DLE 16 и выше"
+					]
+				}
+			],
+			source_link: "https://lazydev.pro/fcode/22-latin-xfield-plugin.html",
+			source_version: "?",
+
+		});
 		this.plugins.push({
 			name: 'ID файла в окне менеджера файлов',
 			version: '160.1.0',
