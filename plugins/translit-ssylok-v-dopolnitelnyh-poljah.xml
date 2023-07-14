@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dleplugin>
+	<name>Транслит ссылок в дополнительных полях</name>
+	<description>Используем транслит вместо кириллицы в ссылках дополнительных полей [ https://lazydev.pro ]
+adjusted by MaHarder</description>
+	<icon></icon>
+	<version>161.1.4</version>
+	<dleversion></dleversion>
+	<versioncompare>==</versioncompare>
+	<upgradeurl></upgradeurl>
+	<filedelete>0</filedelete>
+	<needplugin></needplugin>
+	<mnotice>0</mnotice>
+	<mysqlinstall><![CDATA[ALTER TABLE `{prefix}_xfsearch` ADD `tagvalue_translit` VARCHAR(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL AFTER `tagvalue`;]]></mysqlinstall>
+	<mysqlupgrade><![CDATA[]]></mysqlupgrade>
+	<mysqlenable><![CDATA[]]></mysqlenable>
+	<mysqldisable><![CDATA[]]></mysqldisable>
+	<mysqldelete><![CDATA[ALTER TABLE `{prefix}_xfsearch` DROP `tagvalue_translit`;]]></mysqldelete>
+	<phpinstall><![CDATA[]]></phpinstall>
+	<phpupgrade><![CDATA[]]></phpupgrade>
+	<phpenable><![CDATA[]]></phpenable>
+	<phpdisable><![CDATA[]]></phpdisable>
+	<phpdelete><![CDATA[]]></phpdelete>
+	<notice><![CDATA[]]></notice>
+	<file name="engine/inc/xfields.php">
+		<operation action="after">
+			<searchcode><![CDATA[$editedxfield[6] = ($editedxfield[6] == "on" ? 1 : 0);]]></searchcode>
+			<replacecode><![CDATA[$editedxfield[31] = ($editedxfield[31] == "on" ? 1 : 0);]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.0</dleversion>
+			<versioncompare>less</versioncompare>
+		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[$editedxfield[6] = ($editedxfield[6] == "on" ? 1 : 0);]]></searchcode>
+			<replacecode><![CDATA[$editedxfield[33] = ($editedxfield[33] == "on" ? 1 : 0);]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.1</dleversion>
+			<versioncompare>greater</versioncompare>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[} else $editedxfield[6] = 0;]]></searchcode>
+			<replacecode><![CDATA[} else {
+  $editedxfield[6] = 0;
+  $editedxfield[33] = 0;
+}]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.1</dleversion>
+			<versioncompare>greater</versioncompare>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[} else $editedxfield[6] = 0;]]></searchcode>
+			<replacecode><![CDATA[} else {
+  $editedxfield[6] = 0;
+  $editedxfield[31] = 0;
+}]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.0</dleversion>
+			<versioncompare>less</versioncompare>
+		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[$checked2 = ($editedxfield[6] ? " checked" : "");]]></searchcode>
+			<replacecode><![CDATA[$checked33 = ($editedxfield[33] ? " checked" : "");]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.1</dleversion>
+			<versioncompare>greater</versioncompare>
+		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[$checked2 = ($editedxfield[6] ? " checked" : "");]]></searchcode>
+			<replacecode><![CDATA[$checked31 = ($editedxfield[31] ? " checked" : "");]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.0</dleversion>
+			<versioncompare>less</versioncompare>
+		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[<div id="optional2">
+  <div class="checkbox display-inline-block"><label><input class="icheck" type="checkbox" name="editedxfield[6]"<?php echo $checked2; ?> id="editxsixt"><?php echo $lang['xfield_xw2']; ?></label></div><i class="help-button visible-lg-inline-block text-primary-600 fa fa-question-circle position-right position-left" data-rel="popover" data-trigger="hover" data-placement="auto right" data-content="<?php echo $lang['xfield_xw3']; ?>" ></i>
+</div>]]></searchcode>
+			<replacecode><![CDATA[<div id="optional33">
+    <div class="checkbox display-inline-block"><label><input class="icheck" type="checkbox" name="editedxfield[33]"<?php echo $checked33; ?> id="translit" />Использовать транслит в ссылках</label></div>
+</div>]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.1</dleversion>
+			<versioncompare>greater</versioncompare>
+		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[<div id="optional2">
+  <div class="checkbox display-inline-block"><label><input class="icheck" type="checkbox" name="editedxfield[6]"<?php echo $checked2; ?> id="editxsixt"><?php echo $lang['xfield_xw2']; ?></label></div><i class="help-button visible-lg-inline-block text-primary-600 fa fa-question-circle position-right position-left" data-rel="popover" data-trigger="hover" data-placement="auto right" data-content="<?php echo $lang['xfield_xw3']; ?>" ></i>
+</div>]]></searchcode>
+			<replacecode><![CDATA[<div id="optional31">
+    <div class="checkbox display-inline-block"><label><input class="icheck" type="checkbox" name="editedxfield[31]"<?php echo $checked31; ?> id="translit" />Использовать транслит в ссылках</label></div>
+</div>]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.0</dleversion>
+			<versioncompare>less</versioncompare>
+		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[ShowOrHideEx("optional2", value == "text" || value == "select" || value == "datetime");]]></searchcode>
+			<replacecode><![CDATA[ShowOrHideEx("optional33", value == "text" || value == "select");]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.1</dleversion>
+			<versioncompare>greater</versioncompare>
+		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[ShowOrHideEx("optional2", value == "text" || value == "select" || value == "datetime");]]></searchcode>
+			<replacecode><![CDATA[ShowOrHideEx("optional31", value == "text" || value == "select");]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.0</dleversion>
+			<versioncompare>less</versioncompare>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$xf_search_words[] = array( $db->safesql($value[0]), $db->safesql($value2) );]]></searchcode>
+			<replacecode><![CDATA[$xf_search_words[] = array( $db->safesql($value[0]), $db->safesql($value2), ($value[33]) ? $db->safesql(totranslit($value2, true, false)) : '' );]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.1</dleversion>
+			<versioncompare>greater</versioncompare>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$xf_search_words[] = array( $db->safesql($value[0]), $db->safesql($value2) );]]></searchcode>
+			<replacecode><![CDATA[$xf_search_words[] = array( $db->safesql($value[0]), $db->safesql($value2), ($value[31]) ? $db->safesql(totranslit($value2, true, false)) : '' );]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.0</dleversion>
+			<versioncompare>less</versioncompare>
+		</operation>
+	</file>
+	<file name="engine/inc/addnews.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$temp_array[] = "('" . $id . "', '" . $value[0] . "', '" . $value[1] . "')";]]></searchcode>
+			<replacecode><![CDATA[$temp_array[] = "('" . $id . "', '" . $value[0] . "', '" . $value[1] . "', '" . $value[2] . "')";]]></replacecode>
+			<enabled>1</enabled>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$db->query( "INSERT INTO " . PREFIX . "_xfsearch (news_id, tagname, tagvalue) VALUES " . $xf_search_words );]]></searchcode>
+			<replacecode><![CDATA[$db->query( "INSERT INTO " . PREFIX . "_xfsearch (news_id, tagname, tagvalue, tagvalue_translit) VALUES " . $xf_search_words );]]></replacecode>
+			<enabled>1</enabled>
+		</operation>
+	</file>
+	<file name="engine/inc/editnews.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$temp_array[] = "('" . $item_db[0] . "', '" . $value[0] . "', '" . $value[1] . "')";]]></searchcode>
+			<replacecode><![CDATA[$temp_array[] = "('" . $item_db[0] . "', '" . $value[0] . "', '" . $value[1] . "', '" . $value[2] . "')";]]></replacecode>
+			<enabled>1</enabled>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$db->query( "INSERT INTO " . PREFIX . "_xfsearch (news_id, tagname, tagvalue) VALUES " . $xf_search_words );]]></searchcode>
+			<replacecode><![CDATA[$db->query( "INSERT INTO " . PREFIX . "_xfsearch (news_id, tagname, tagvalue, tagvalue_translit) VALUES " . $xf_search_words );]]></replacecode>
+			<enabled>1</enabled>
+		</operation>
+	</file>
+	<file name="engine/modules/show.short.php">
+		<operation action="replace">
+			<searchcode><![CDATA[if( $config['allow_alt_url'] ) $value3[] = "<a href=\"" . $config['http_home_url'] . "xfsearch/" .$value[0]."/". rawurlencode( dle_strtolower($value4) ) . "/\">" . $value2 . "</a>";]]></searchcode>
+			<replacecode><![CDATA[if ($config['allow_alt_url']) $value3[] = "<a href=\"" . $config['http_home_url'] . 'xfsearch/' . $value[0] . '/' . (($value[33]) ? rawurlencode(totranslit(dle_strtolower($value4), true, false)) : rawurlencode(dle_strtolower($value4))) . "/\">" . $value2 . "</a>";]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.1</dleversion>
+			<versioncompare>greater</versioncompare>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[if( $config['allow_alt_url'] ) $value3[] = "<a href=\"" . $config['http_home_url'] . "xfsearch/" .$value[0]."/". rawurlencode( dle_strtolower($value4) ) . "/\">" . $value2 . "</a>";]]></searchcode>
+			<replacecode><![CDATA[if ($config['allow_alt_url']) $value3[] = "<a href=\"" . $config['http_home_url'] . 'xfsearch/' . $value[0] . '/' . (($value[31]) ? rawurlencode(totranslit(dle_strtolower($value4), true, false)) : rawurlencode(dle_strtolower($value4))) . "/\">" . $value2 . "</a>";]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.0</dleversion>
+			<versioncompare>less</versioncompare>
+		</operation>
+	</file>
+	<file name="engine/modules/show.full.php">
+		<operation action="replace">
+			<searchcode><![CDATA[if( $config['allow_alt_url'] ) $value3[] = "<a href=\"" . $config['http_home_url'] . "xfsearch/" .$value[0]."/". rawurlencode( dle_strtolower($value4) ) . "/\">" . $value2 . "</a>";]]></searchcode>
+			<replacecode><![CDATA[if ($config['allow_alt_url']) $value3[] = "<a href=\"" . $config['http_home_url'] . 'xfsearch/' . $value[0] . '/' . (($value[33]) ? rawurlencode(totranslit(dle_strtolower($value4), true, false)) : rawurlencode(dle_strtolower($value4))) . "/\">" . $value2 . "</a>";]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.1</dleversion>
+			<versioncompare>greater</versioncompare>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[if( $config['allow_alt_url'] ) $value3[] = "<a href=\"" . $config['http_home_url'] . "xfsearch/" .$value[0]."/". rawurlencode( dle_strtolower($value4) ) . "/\">" . $value2 . "</a>";]]></searchcode>
+			<replacecode><![CDATA[if ($config['allow_alt_url']) $value3[] = "<a href=\"" . $config['http_home_url'] . 'xfsearch/' . $value[0] . '/' . (($value[31]) ? rawurlencode(totranslit(dle_strtolower($value4), true, false)) : rawurlencode(dle_strtolower($value4))) . "/\">" . $value2 . "</a>";]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.0</dleversion>
+			<versioncompare>less</versioncompare>
+		</operation>
+	</file>
+	<file name="engine/modules/show.custom.php">
+		<operation action="replace">
+			<searchcode><![CDATA[if( $config['allow_alt_url'] ) $value3[] = "<a href=\"" . $config['http_home_url'] . "xfsearch/" .$value[0]."/". rawurlencode( dle_strtolower($value4) ) . "/\">" . $value2 . "</a>";]]></searchcode>
+			<replacecode><![CDATA[if ($config['allow_alt_url']) $value3[] = "<a href=\"" . $config['http_home_url'] . 'xfsearch/' . $value[0] . '/' . (($value[33]) ? rawurlencode(totranslit(dle_strtolower($value4), true, false)) : rawurlencode(dle_strtolower($value4))) . "/\">" . $value2 . "</a>";]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.1</dleversion>
+			<versioncompare>greater</versioncompare>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[if( $config['allow_alt_url'] ) $value3[] = "<a href=\"" . $config['http_home_url'] . "xfsearch/" .$value[0]."/". rawurlencode( dle_strtolower($value4) ) . "/\">" . $value2 . "</a>";]]></searchcode>
+			<replacecode><![CDATA[if ($config['allow_alt_url']) $value3[] = "<a href=\"" . $config['http_home_url'] . 'xfsearch/' . $value[0] . '/' . (($value[31]) ? rawurlencode(totranslit(dle_strtolower($value4), true, false)) : rawurlencode(dle_strtolower($value4))) . "/\">" . $value2 . "</a>";]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.0</dleversion>
+			<versioncompare>less</versioncompare>
+		</operation>
+	</file>
+	<file name="engine/engine.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$sql_select = "SELECT p.id, p.autor, p.date, p.short_story, CHAR_LENGTH(p.full_story) as full_story, p.xfields, p.title, p.category, p.alt_name, p.comm_num, p.allow_comm, p.fixed, p.tags, e.news_read, e.allow_rate, e.rating, e.vote_num, e.votes, e.view_edit, e.editdate, e.editor, e.reason {$user_select}FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join}LEFT JOIN " . PREFIX . "_post_extras e ON (p.id=e.news_id) {$user_join}WHERE {$stop_list}xf.tagname = '{$xfname}' AND xf.tagvalue='{$xf}' AND p.approve=1" . $where_date . " ORDER BY " . $news_sort_by . " " . $news_direction_by . " LIMIT " . $cstart . "," . $config['news_number'];
+$sql_count  = "SELECT COUNT(*) as count FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join}WHERE {$stop_list}xf.tagname = '{$xfname}' AND xf.tagvalue='{$xf}' AND approve=1";]]></searchcode>
+			<replacecode><![CDATA[$data_xf = xfieldsload();
+$this_xf = array_filter($data_xf, function($item) use($xfname) {
+    return $item[0] == $xfname && $item[31] == 1;
+});
+if ($this_xf) {
+  	$translit_xf = totranslit($xf, true, false);
+  	$url_page = $config['http_home_url'] . "xfsearch/{$xfname}/" . rawurlencode(dle_strtolower(str_replace(["&#039;", "&quot;", "&amp;", "&#123;", "&#91;", "&#58;", "/"], ["'", '"', "&", "{", "[", ":", "&frasl;"], $translit_xf)));
+    if ($xf != $translit_xf) {
+        $re_url = $url_page . '/';
+        header("HTTP/1.0 301 Moved Permanently");
+        header("Location: {$re_url}");
+        die("Redirect");
+    }
+  	$xf_temp = $db->super_query("SELECT tagvalue FROM " . PREFIX . "_xfsearch WHERE tagname='{$xfname}' AND tagvalue_translit='{$xf}' LIMIT 1");
+    
+	$sql_select = "SELECT p.id, p.autor, p.date, p.short_story, CHAR_LENGTH(p.full_story) as full_story, p.xfields, p.title, p.category, p.alt_name, p.comm_num, p.allow_comm, p.fixed, p.tags, e.news_read, e.allow_rate, e.rating, e.vote_num, e.votes, e.view_edit, e.editdate, e.editor, e.reason {$user_select} FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join} LEFT JOIN " . PREFIX . "_post_extras e ON (p.id=e.news_id) {$user_join} WHERE {$stop_list} xf.tagname = '{$xfname}' AND xf.tagvalue_translit='{$xf}' AND p.approve=1 " . $where_date . " ORDER BY " . $news_sort_by . " " . $news_direction_by . " LIMIT " . $cstart . "," . $config['news_number'];
+	$sql_count  = "SELECT COUNT(*) as count FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join} WHERE {$stop_list} xf.tagname = '{$xfname}' AND xf.tagvalue_translit='{$xf}' AND approve=1";
+  	$xf = stripslashes($xf_temp['tagvalue']);
+} else {
+	$sql_select = "SELECT p.id, p.autor, p.date, p.short_story, CHAR_LENGTH(p.full_story) as full_story, p.xfields, p.title, p.category, p.alt_name, p.comm_num, p.allow_comm, p.fixed, p.tags, e.news_read, e.allow_rate, e.rating, e.vote_num, e.votes, e.view_edit, e.editdate, e.editor, e.reason {$user_select} FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join} LEFT JOIN " . PREFIX . "_post_extras e ON (p.id=e.news_id) {$user_join} WHERE {$stop_list} xf.tagname = '{$xfname}' AND xf.tagvalue='{$xf}' AND p.approve=1 " . $where_date . " ORDER BY " . $news_sort_by . " " . $news_direction_by . " LIMIT " . $cstart . "," . $config['news_number'];
+	$sql_count  = "SELECT COUNT(*) as count FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join} WHERE {$stop_list} xf.tagname = '{$xfname}' AND xf.tagvalue='{$xf}' AND approve=1";
+}]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>15.3</dleversion>
+			<versioncompare>less</versioncompare>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$sql_select = "SELECT p.id, p.autor, p.date, p.short_story, CHAR_LENGTH(p.full_story) as full_story, p.xfields, p.title, p.descr, p.keywords, p.category, p.alt_name, p.comm_num, p.allow_comm, p.allow_main, p.approve, p.fixed, p.symbol, p.tags, e.news_read, e.allow_rate, e.rating, e.vote_num, e.votes, e.view_edit, e.disable_index, e.editdate, e.editor, e.reason {$user_select}FROM " . PREFIX . "_post p LEFT JOIN " . PREFIX . "_post_extras e ON (p.id=e.news_id) {$user_join}";
+				$sql_count  = "SELECT COUNT(*) as count FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join}WHERE {$stop_list}xf.tagname = '{$xfname}' AND xf.tagvalue='{$xf}' AND approve=1";]]></searchcode>
+			<replacecode><![CDATA[$data_xf = xfieldsload();
+				$this_xf = array_filter($data_xf, function($item) use($xfname) {
+					return $item[0] == $xfname && $item[33] == 1;
+				});
+				if ($this_xf) {
+                    $sql_select_ids = false;
+					$translit_xf = totranslit($xf, true, false);
+					$url_page = $config['http_home_url'] . "xfsearch/{$xfname}/" . rawurlencode(dle_strtolower(str_replace(["&#039;", "&quot;", "&amp;", "&#123;", "&#91;", "&#58;", "/"], ["'", '"', "&", "{", "[", ":", "&frasl;"], $translit_xf)));
+					if ($xf != $translit_xf) {
+						$re_url = $url_page . '/';
+						header("HTTP/1.0 301 Moved Permanently");
+						header("Location: {$re_url}");
+						die("Redirect");
+					}
+					$xf_temp = $db->super_query("SELECT tagvalue FROM " . PREFIX . "_xfsearch WHERE tagname='{$xfname}' AND tagvalue_translit='{$xf}' LIMIT 1");
+					
+					$sql_select = "SELECT p.id, p.autor, p.date, p.short_story, CHAR_LENGTH(p.full_story) as full_story, p.xfields, p.title, p.category, p.alt_name, p.comm_num, p.allow_comm, p.fixed, p.tags, e.news_read, e.allow_rate, e.rating, e.vote_num, e.votes, e.view_edit, e.editdate, e.editor, e.reason {$user_select} FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join} LEFT JOIN " . PREFIX . "_post_extras e ON (p.id=e.news_id) {$user_join} WHERE {$stop_list} xf.tagname = '{$xfname}' AND xf.tagvalue_translit='{$xf}' AND p.approve=1 " . $where_date . " ORDER BY " . $news_sort_by . " " . $news_direction_by . " LIMIT " . $cstart . "," . $config['news_number'];
+					$sql_count  = "SELECT COUNT(*) as count FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join} WHERE {$stop_list} xf.tagname = '{$xfname}' AND xf.tagvalue_translit='{$xf}' AND approve=1";
+					$xf = stripslashes($xf_temp['tagvalue']);
+				} else {
+					$sql_select = "SELECT p.id, p.autor, p.date, p.short_story, CHAR_LENGTH(p.full_story) as full_story, p.xfields, p.title, p.category, p.alt_name, p.comm_num, p.allow_comm, p.fixed, p.tags, e.news_read, e.allow_rate, e.rating, e.vote_num, e.votes, e.view_edit, e.editdate, e.editor, e.reason {$user_select} FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join} LEFT JOIN " . PREFIX . "_post_extras e ON (p.id=e.news_id) {$user_join} WHERE {$stop_list} xf.tagname = '{$xfname}' AND xf.tagvalue='{$xf}' AND p.approve=1 " . $where_date . " ORDER BY " . $news_sort_by . " " . $news_direction_by . " LIMIT " . $cstart . "," . $config['news_number'];
+					$sql_count  = "SELECT COUNT(*) as count FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join} WHERE {$stop_list} xf.tagname = '{$xfname}' AND xf.tagvalue='{$xf}' AND approve=1";
+				}]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.1</dleversion>
+			<versioncompare>greater</versioncompare>
+		</operation><operation action="replace">
+			<searchcode><![CDATA[$sql_select = "SELECT p.id, p.autor, p.date, p.short_story, CHAR_LENGTH(p.full_story) as full_story, p.xfields, p.title, p.descr, p.keywords, p.category, p.alt_name, p.comm_num, p.allow_comm, p.allow_main, p.approve, p.fixed, p.symbol, p.tags, e.news_read, e.allow_rate, e.rating, e.vote_num, e.votes, e.view_edit, e.disable_index, e.editdate, e.editor, e.reason {$user_select}FROM " . PREFIX . "_post p LEFT JOIN " . PREFIX . "_post_extras e ON (p.id=e.news_id) {$user_join}";
+				$sql_count  = "SELECT COUNT(*) as count FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join}WHERE {$stop_list}xf.tagname = '{$xfname}' AND xf.tagvalue='{$xf}' AND approve=1";]]></searchcode>
+			<replacecode><![CDATA[$data_xf = xfieldsload();
+				$this_xf = array_filter($data_xf, function($item) use($xfname) {
+					return $item[0] == $xfname && $item[31] == 1;
+				});
+				if ($this_xf) {
+                    $sql_select_ids = false;
+					$translit_xf = totranslit($xf, true, false);
+					$url_page = $config['http_home_url'] . "xfsearch/{$xfname}/" . rawurlencode(dle_strtolower(str_replace(["&#039;", "&quot;", "&amp;", "&#123;", "&#91;", "&#58;", "/"], ["'", '"', "&", "{", "[", ":", "&frasl;"], $translit_xf)));
+					if ($xf != $translit_xf) {
+						$re_url = $url_page . '/';
+						header("HTTP/1.0 301 Moved Permanently");
+						header("Location: {$re_url}");
+						die("Redirect");
+					}
+					$xf_temp = $db->super_query("SELECT tagvalue FROM " . PREFIX . "_xfsearch WHERE tagname='{$xfname}' AND tagvalue_translit='{$xf}' LIMIT 1");
+					
+					$sql_select = "SELECT p.id, p.autor, p.date, p.short_story, CHAR_LENGTH(p.full_story) as full_story, p.xfields, p.title, p.category, p.alt_name, p.comm_num, p.allow_comm, p.fixed, p.tags, e.news_read, e.allow_rate, e.rating, e.vote_num, e.votes, e.view_edit, e.editdate, e.editor, e.reason {$user_select} FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join} LEFT JOIN " . PREFIX . "_post_extras e ON (p.id=e.news_id) {$user_join} WHERE {$stop_list} xf.tagname = '{$xfname}' AND xf.tagvalue_translit='{$xf}' AND p.approve=1 " . $where_date . " ORDER BY " . $news_sort_by . " " . $news_direction_by . " LIMIT " . $cstart . "," . $config['news_number'];
+					$sql_count  = "SELECT COUNT(*) as count FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join} WHERE {$stop_list} xf.tagname = '{$xfname}' AND xf.tagvalue_translit='{$xf}' AND approve=1";
+					$xf = stripslashes($xf_temp['tagvalue']);
+				} else {
+					$sql_select = "SELECT p.id, p.autor, p.date, p.short_story, CHAR_LENGTH(p.full_story) as full_story, p.xfields, p.title, p.category, p.alt_name, p.comm_num, p.allow_comm, p.fixed, p.tags, e.news_read, e.allow_rate, e.rating, e.vote_num, e.votes, e.view_edit, e.editdate, e.editor, e.reason {$user_select} FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join} LEFT JOIN " . PREFIX . "_post_extras e ON (p.id=e.news_id) {$user_join} WHERE {$stop_list} xf.tagname = '{$xfname}' AND xf.tagvalue='{$xf}' AND p.approve=1 " . $where_date . " ORDER BY " . $news_sort_by . " " . $news_direction_by . " LIMIT " . $cstart . "," . $config['news_number'];
+					$sql_count  = "SELECT COUNT(*) as count FROM " . PREFIX . "_post p INNER JOIN " . PREFIX . "_xfsearch xf on (xf.news_id=p.id) {$cat_join} WHERE {$stop_list} xf.tagname = '{$xfname}' AND xf.tagvalue='{$xf}' AND approve=1";
+				}]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.0</dleversion>
+			<versioncompare>==</versioncompare>
+		</operation>
+	</file>
+	<file name="engine/ajax/rebuild.php">
+		<operation action="replace">
+			<searchcode><![CDATA[if($value2) $xf_search_words[] = array( $db->safesql($value[0]), $db->safesql($value2) );]]></searchcode>
+			<replacecode><![CDATA[if($value2) $xf_search_words[] = array( $db->safesql($value[0]), $db->safesql($value2), ($value[33]) ? $db->safesql(totranslit($value2, true, false)) : '' );]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.1</dleversion>
+			<versioncompare>greater</versioncompare>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[if($value2) $xf_search_words[] = array( $db->safesql($value[0]), $db->safesql($value2) );]]></searchcode>
+			<replacecode><![CDATA[if($value2) $xf_search_words[] = array( $db->safesql($value[0]), $db->safesql($value2), ($value[31]) ? $db->safesql(totranslit($value2, true, false)) : '' );]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>16.0</dleversion>
+			<versioncompare>less</versioncompare>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$temp_array[] = "('" . $row['id'] . "', '" . $value[0] . "', '" . $value[1] . "')";]]></searchcode>
+			<replacecode><![CDATA[$temp_array[] = "('" . $row['id'] . "', '" . $value[0] . "', '" . $value[1] . "', '" . $value[2] . "')";]]></replacecode>
+			<enabled>1</enabled>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$db->query( "INSERT INTO " . PREFIX . "_xfsearch (news_id, tagname, tagvalue) VALUES " . $xf_search_words );]]></searchcode>
+			<replacecode><![CDATA[$db->query( "INSERT INTO " . PREFIX . "_xfsearch (news_id, tagname, tagvalue, tagvalue_translit) VALUES " . $xf_search_words );]]></replacecode>
+			<enabled>1</enabled>
+		</operation>
+	</file>
+</dleplugin>
