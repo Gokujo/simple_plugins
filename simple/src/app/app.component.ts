@@ -37,8 +37,7 @@ export class AppComponent implements OnInit {
 			source_link: "https://raw.githubusercontent.com/San-Dev/dle-plugins/master/fullstory-metatags.xml",
 			source_version: "?",
 
-		});
-		this.mods.push({
+		}, {
 			name: 'Latin xField plugin',
 			version: '164.1.4',
 			description: 'Плагин для конвертации ссылок в дополнительных полях в латиницу',
